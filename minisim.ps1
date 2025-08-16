@@ -1,12 +1,13 @@
 #Requires -Version 5.1
 param(
     [int]$MinSeconds = 5,
-    [int]$MaxSeconds = 60
+    [int]$MaxSeconds = 60,
+    [switch]$Verbose
 )
 
 Add-Type -AssemblyName System.Windows.Forms
 
-$keystrokes = @("^{CTRL}", "+{SHIFT}", "{F15}")
+$keystrokes = @("^", "+", "{F15}")
 
 Write-Host "Simple Activity Simulator Started - Press CTRL+C to stop" -ForegroundColor Green
 Write-Host "Interval: $MinSeconds-$MaxSeconds seconds" -ForegroundColor Yellow
@@ -16,8 +17,8 @@ try {
         # Random keystroke
         $key = $keystrokes | Get-Random
         $keyName = switch ($key) {
-            "^{CTRL}" { "CTRL" }
-            "+{SHIFT}" { "SHIFT" }
+            "^" { "CTRL" }
+            "+" { "SHIFT" }
             "{F15}" { "F15" }
         }
         
@@ -26,7 +27,9 @@ try {
         
         # Random wait
         $waitTime = Get-Random -Minimum $MinSeconds -Maximum $MaxSeconds
-        Write-Host "Next keystroke in $waitTime seconds..." -ForegroundColor Gray
+        if ($Verbose) {
+            Write-Host "Next keystroke in $waitTime seconds..." -ForegroundColor Gray
+        }
         Start-Sleep -Seconds $waitTime
     }
 }
