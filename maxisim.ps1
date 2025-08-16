@@ -44,10 +44,10 @@ function Write-ActivityLog {
     }
 }
 
-# Available keystrokes to simulate
+# Available keystrokes to simulate - FIXED SYNTAX
 $KeyStrokes = @(
-    @{ Name = "CTRL"; Keys = "^{CTRL}" },
-    @{ Name = "SHIFT"; Keys = "+{SHIFT}" },
+    @{ Name = "CTRL"; Keys = "^" },
+    @{ Name = "SHIFT"; Keys = "+" },
     @{ Name = "F15 (Keep Awake)"; Keys = "{F15}" }
 )
 
@@ -77,7 +77,7 @@ function Send-RandomKeystroke {
         }
         else {
             # 20% chance - F15 (keep awake)
-            $keystroke = $KeyStrokes[1]
+            $keystroke = $KeyStrokes[2]
             $script:Stats.F15Count++
         }
         
